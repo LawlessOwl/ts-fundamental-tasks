@@ -71,7 +71,8 @@ interface UserInterfaceWithOptionalEmail {
   name: string,
   email?: string,
   age: number,
-  isAdmin: boolean
+  isAdmin: boolean,
+  role?: string
 }
 
 const testUserWithoutEmail: UserInterfaceWithOptionalEmail = {
@@ -111,14 +112,73 @@ const firstTuple: [string, number] = ["Alisa", 25]
 console.log(firstTuple)
 
 // 11) Используй перечисление enum для ролей пользователя.
+enum Role {
+  Admin = "Admin",
+  User = "User",
+  Guest = "Guest"
+}
+
+const testUserWithRole: UserInterfaceWithOptionalEmail = {
+  name: "Alexa",
+  age: 24,
+  isAdmin: false,
+  role: Role.User
+}
+
+console.log(testUserWithRole)
 
 // 12) Создай readonly поля в интерфейсе.
+interface ReadonlyTest {
+  name: string,
+  age: number,
+  readonly isAdmin: boolean
+}
+
+const userWithReadonly: ReadonlyTest = {
+  name: "Aldebaran",
+  age: 25,
+  isAdmin: true
+}
+
+console.log(userWithReadonly)
 
 // 13) Используй type alias и интерфейс вместе.
+type Status = "online" | "offline"
+
+interface UserWithStatus {
+  name: string,
+  age: number,
+  status: Status
+}
+
+const testUserWithStatus: UserWithStatus = {
+  name: "Regulus",
+  age: 20,
+  status: "online"
+}
+
+console.log(testUserWithStatus)
 
 // 14) Реализуй функцию, которая принимает колбэк и вызывает его с типами.
+const funcWithTypedCallback = (callback: (name: string, age: number) => void) => {
+  const name = "Alisa"
+  const age = 25
+  callback(name, age)
+}
+
+funcWithTypedCallback((name, age) => {
+  console.log(`Hi ${name}, you are ${age} years old`)
+})
 
 // 15) Создай Record<string, number> и заполни его.
+const users: Record<string, number> = {
+  "Alisa": 25,
+  "Aldebaran": 30,
+  "Orsted": 28,
+  "Nova": 20
+}
+
+console.log(users)
 
 // 16) Используй Partial<T> и Required<T>.
 
