@@ -181,14 +181,61 @@ const users: Record<string, number> = {
 console.log(users)
 
 // 16) Используй Partial<T> и Required<T>.
+type UserPartial = {
+  name: string,
+  age: number,
+  isAdmin: boolean
+}
+
+type UserReuired = {
+  name?: string,
+  age?: number,
+  isAdmin?: boolean
+}
+
+const partialUser: Partial<UserPartial> = {
+  name: "Sun"
+}
+
+const requiredUser: Required<UserReuired> = {
+  name: "Moon",
+  age: 35,
+  isAdmin: false
+}
+
+console.log(partialUser)
+console.log(requiredUser)
 
 // 17) Создай функцию, возвращающую never.
+const neverFunc = (msg: string): never => {
+  throw new Error(msg)
+}
 
 // 18) Напиши функцию с перегрузкой function overloading.
+function overloadingFunc (value: string): void
+function overloadingFunc (value: number): void
+function overloadingFunc (value: string | number): void {
+  console.log(value)
+}
+
+overloadingFunc("hi")
+overloadingFunc(123)
 
 // 19) Используй typeof и keyof для получения типов.
+const star = {
+  name: "Sun",
+  system: "Solar",
+  isAlive: true
+}
+
+type StarTypes = typeof star[keyof typeof star]
 
 // 20) Напиши функцию, принимающую объект и возвращающую keyof typeof.
+const getKeys = <T extends object>(obj: T): (keyof T)[] => {
+ return Object.keys(obj) as (keyof T)[]
+}
+
+console.log(getKeys(star))
 
 // --------------------------------------------------------------------------------------------------------------------------------------//
 
