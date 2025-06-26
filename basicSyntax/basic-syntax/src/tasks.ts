@@ -242,14 +242,57 @@ console.log(getKeys(star))
 // 2)🔹 TypeScript — Продвинутый уровень (21–40)
 
 // 1) Создай обобщённую функцию (generic), которая возвращает переданный аргумент.
+const genericFunc = <T>(value: T): T => {
+  return value
+}
+
+console.log(genericFunc("HI"))
 
 // 2) Ограничь generic типом (<T extends string>).
 
+const genericFunc2 = <T extends string>(value: T): T => {
+  return value
+}
+console.log(genericFunc2("HI"))
+
 // 3) Используй infer внутри условного типа.
+type SomeType<T> = T extends (infer U)[] ? U : never
+type stringArray = SomeType<string[]>
 
 // 4) Напиши утилиту DeepPartial<T>.
+type DeepPartial<T> = {
+  [P in keyof T]?: T[P] extends object ? DeepPartial<T[P]> : T[P]
+}
+
+type TestDeepPartialUser = {
+  name: string,
+  age: number,
+  friend: {
+    name: string,
+    age: number
+  }
+}
+
+type DeepUser = DeepPartial<TestDeepPartialUser>
+
+const testDeepUser: DeepUser = {
+  friend: {
+    name: "Alisa"
+  }
+}
 
 // 5) Реализуй Pick<T, K> самостоятельно.
+type MyPick<T, K extends keyof T> = {
+  [P in K]: T[P]
+}
+
+type DeepUserWithOnlyName = MyPick<TestDeepPartialUser, "name">
+
+const myPickUser: DeepUserWithOnlyName = {
+  name: "Alisa"
+}
+
+console.log(myPickUser)
 
 // 6) Создай Mapped type, изменяющий тип всех полей на string.
 
